@@ -49,11 +49,10 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/jonatas/.local/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
-
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -80,6 +79,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
 # System
 alias sync_time="sudo ntpd -qg"
 alias edit_zsh="vim ~/.zshrc"
@@ -96,6 +96,11 @@ function mailc(){
   docker run -d -p 1025:1025 -p 1080:1080 aegypius/mailcatcher
 }
 
+# docker mongodb
+function mongodb_docker() {
+  docker run -d -p 27017:27017 -p 28017:28017 -e AUTH=no tutum/mongodb
+}
+
 # user and group permission
 
 function set_permissions(){
@@ -103,4 +108,9 @@ function set_permissions(){
   sudo chown jonatas -R .*;
   sudo chgrp -R jonatas *;
   sudo chgrp -R jonatas .*;
+}
+
+function local_yo() {
+  node_modules/yo/lib/cli.js $1 $2
+}
 
