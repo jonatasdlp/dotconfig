@@ -10,7 +10,6 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Using a non-master branch
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
@@ -27,11 +26,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 
-" Plugins
+" Add plugins to &runtimepath
 Plug 'tpope/vim-rails'
 Plug 'kien/ctrlp.vim'
 Plug 'ddollar/nerdcommenter'
-Plug 'scrooloose/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -55,14 +53,12 @@ Plug 'tpope/vim-endwise'
 Plug 'dag/vim-fish'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'einars/js-beautify'
-Plug 'kien/ctrlp'
+Plug 'mxw/vim-jsx'
+Plug 'w0rp/ale'
+Plug 'othree/es.next.syntax.vim'
 
-" Add plugins to &runtimepath
 call plug#end()
 
-filetype plugin indent on
-
-" Configs
 syntax on
 set tabstop=2
 set shiftwidth=2
@@ -73,12 +69,18 @@ set background=dark
 set cpoptions+=$ " puts a $ marker for the end of words/lines in cw/c$ commands
 set t_Co=256
 set number
-set shell=/bin/zsh
+set shell=/bin/bash
 
 let g:NERDTreeWinPos = "left"
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 let g:user_emmet_mode='a' "enable all function in all mode.
 let NERDTreeIgnore=['\www', '\~$']
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+let g:ale_lint_on_text_changed = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 
 autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> correctly
 
@@ -86,7 +88,8 @@ autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> c
 highlight ColorColumn ctermbg=7
 highlight ColorColumn guibg=Gray
 
-let g:airline#extensions#tabline#enabled = 1
+" Required:
+filetype plugin indent on
 
 " Key maps
 nmap <F2> :NERDTreeToggle<CR>
@@ -109,3 +112,10 @@ autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
+" backup to ~/.tmp
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set writebackup
