@@ -34,6 +34,7 @@ alias zshedit="vim ~/.zshrc"
 alias zshreload="source ~/.zshrc"
 alias vimedit="vim ~/.config/nvim/init.vim"
 alias gvimedit="vim ~/.config/nvim/ginit.vim"
+alias gitlog="git log --pretty=format:'%h %s' --graph"
 
 # DOCKER alias
 alias docker_postgres="docker run -d -p 5432:5432 postgres"
