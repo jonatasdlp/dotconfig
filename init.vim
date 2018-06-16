@@ -62,6 +62,9 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'tomasr/molokai'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
+Plug 'vim-syntastic/syntastic'
+Plug 'ruanyl/vim-fixmyjs'
+
 
 call plug#end()
 
@@ -112,6 +115,19 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
 
+" eslint
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+let g:ale_emit_conflict_warnings = 0
+let g:fixmyjs_engine = 'eslint'
+
 autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> correctly
 
 " Vimbrant configs
@@ -128,6 +144,7 @@ nmap <F4> :tabnew<CR>
 nmap <F6> :/\
 nmap <F12> :retab<CR>
 nmap <F8> :TagbarToggle<CR>
+nmap <Leader>f :call Fixmyjs()<CR>
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
