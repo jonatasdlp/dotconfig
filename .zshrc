@@ -1,111 +1,175 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/jonatas/.oh-my-zsh
+call plug#begin('~/.vim/plugged')
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+" Make sure you use single quotes
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
 
-# User configuration
+" Any valid git URL is allowed
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
-# export MANPATH="/usr/local/man:$MANPATH"
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-source $ZSH/oh-my-zsh.sh
+" Using a non-master branch
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+Plug 'fatih/vim-go', { 'tag': '*' }
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+" Plugin options
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 
-# System
-alias sync_time="sudo ntpd -qg"
-alias vim="nvim"
-alias synctime="sudo ntpd -qg"
-alias zshedit="vim ~/.zshrc"
-alias zshreload="source ~/.zshrc"
-alias vimedit="vim ~/.config/nvim/init.vim"
-alias gvimedit="vim ~/.config/nvim/ginit.vim"
-alias gitlog="git log --pretty=format:'%h %s' --graph"
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-# Git
-alias g!='git init' 
-alias g.='git add .'
-alias g.-file='git add'
-alias gb='git branch'
-alias gb-new='git checkout -b'
-alias gblame='git blame'
-alias gcl='git clone'
-alias gc='git commit -m'
-alias gcout='git checkout'
-alias gd='git diff'
-alias gf='git fetch'
-alias gl='git log'
-alias gph='git push'
-alias gph-f='git push -f'
-alias gpl='git pull'
-alias gr='git remote'
-alias gr-list='git remote -v'
-alias gr-add='git remote add'
-alias greset='git reset --hard'
-alias grevert-head='git revert HEAD'
-alias grevert='git revert'
-alias gs='git status'
-alias gsh='git stash'
-alias gsh-a='git stash apply'
-alias gsh-c='git stash clear'
-alias gsh-d='git stash drop'
-alias gsh-l='git stash list'
-alias gsh-p='git stash pop'
+" Unmanaged plugin (manually installed and updated)
+Plug '~/my-prototype-plugin'
 
-# DOCKER alias
-alias docker_postgres="docker run -d -p 5432:5432 postgres"
-alias start_docker="sudo systemctl start docker"
-alias stop_docker='docker stop $(docker ps -a -q)'
-alias remove_docker='docker rm $(docker ps -a -q)'
+" Add plugins to &runtimepath
+Plug 'tpope/vim-rails'
+Plug 'kien/ctrlp.vim'
+Plug 'ddollar/nerdcommenter'
+Plug 'majutsushi/tagbar'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'vim-scripts/bufkill.vim'
+Plug 'Shougo/vimfiler.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-scripts/EasyGrep'
+Plug 'vim-ruby/vim-ruby'
+Plug 'mattn/emmet-vim/'
+Plug 'othree/html5.vim'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'jgdavey/tslime.vim'
+Plug 'thoughtbot/vim-rspec'
+Plug 'ap/vim-css-color'
+Plug 'itspriddle/vim-jquery'
+Plug 'tpope/vim-endwise'
+Plug 'dag/vim-fish'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'einars/js-beautify'
+Plug 'mxw/vim-jsx'
+Plug 'w0rp/ale'
+Plug 'othree/es.next.syntax.vim'
+Plug 'carakan/new-railscasts-theme'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'tomasr/molokai'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-syntastic/syntastic'
+Plug 'sbdchd/neoformat'
+Plug 'flowtype/vim-flow'
+Plug 'ternjs/tern_for_vim', { 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' } 
 
-# Paths
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
-export GOPATH=$HOME/Workspace/go
+call plug#end()
 
-# db
-function mysql_repair {
-  sudo mysql.server stop
-  sudo chown -R _mysql:mysql /usr/local/var/mysql
-  sudo mysql.server start 
-}
+syntax on
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set ai
+set nowrap
+set background=dark
+set cpoptions+=$ " puts a $ marker for the end of words/lines in cw/c$ commands
+set t_Co=256
+set number
+set shell=/bin/zsh
+colorscheme molokai
 
-# docker mailcatcher
-function mailc(){
-  docker run -d -p 1025:1025 -p 1080:1080 aegypius/mailcatcher
-}
+let g:NERDTreeWinPos = "left"
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+let g:user_emmet_mode='a' "enable all function in all mode.
+let NERDTreeIgnore=['\www', '\~$']
+let b:ale_linters = {
+\   'javascript': ['eslint', 'flow'],
+\}
+let g:ale_lint_on_text_changed = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:javascript_plugin_jsdoc = 1
+let g:jsx_ext_required = 0
 
-# docker mongodb
-function mongodb_docker() {
-  docker run -d -p 27017:27017 -p 28017:28017 -e AUTH=no tutum/mongodb
-}
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "⇚"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_prototype            = "¶"
+let g:javascript_conceal_static               = "•"
+let g:javascript_conceal_super                = "Ω"
 
-# user and group permission
-function set_permissions(){
-  sudo chown jonatas -R *;
-  sudo chown jonatas -R .*;
-  sudo chgrp -R jonatas *;
-  sudo chgrp -R jonatas .*;
-}
+let g:molokai_original = 1
+let g:rehash256 = 1
 
-function local_yo() {
-  node_modules/yo/lib/cli.js $1 $2
-}
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_powerline_fonts = 1
 
-# rbenv settings
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+" airline symbols
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+
+" eslint
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+let g:ale_emit_conflict_warnings = 0
+let g:neoformat_enabled_javascript = ['prettier', 'eslint']
+let g:flow#autoclose = 1
+
+
+autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> correctly
+
+" Vimbrant configs
+highlight ColorColumn ctermbg=7
+highlight ColorColumn guibg=Gray
+
+" Required:
+filetype plugin indent on
+
+" Key maps
+nmap <F2> :NERDTreeToggle<CR>
+nmap <F3> :split<CR>
+nmap <F4> :tabnew<CR>
+nmap <F6> :/\
+nmap <F12> :retab<CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <Leader>f :call Fixmyjs()<CR>
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+
+" JS Beutify
+map <c-f> :call JsBeautify()<cr>
+
+" or
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
+" backup to ~/.tmp
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set writebackup
