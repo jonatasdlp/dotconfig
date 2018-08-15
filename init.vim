@@ -63,8 +63,9 @@ Plug 'tomasr/molokai'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-syntastic/syntastic'
-Plug 'ruanyl/vim-fixmyjs'
-
+Plug 'sbdchd/neoformat'
+Plug 'flowtype/vim-flow'
+Plug 'ternjs/tern_for_vim', { 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' } 
 
 call plug#end()
 
@@ -85,8 +86,8 @@ let g:NERDTreeWinPos = "left"
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 let g:user_emmet_mode='a' "enable all function in all mode.
 let NERDTreeIgnore=['\www', '\~$']
-let g:ale_linters = {
-\   'javascript': ['eslint'],
+let b:ale_linters = {
+\   'javascript': ['eslint', 'flow'],
 \}
 let g:ale_lint_on_text_changed = 1
 let g:ale_sign_error = '>>'
@@ -103,9 +104,6 @@ let g:javascript_conceal_NaN                  = "ℕ"
 let g:javascript_conceal_prototype            = "¶"
 let g:javascript_conceal_static               = "•"
 let g:javascript_conceal_super                = "Ω"
-let g:javascript_conceal_arrow_function       = "⇒"
-let g:javascript_conceal_noarg_arrow_function = "=>"
-let g:javascript_conceal_underscore_arrow_function = "_"
 
 let g:molokai_original = 1
 let g:rehash256 = 1
@@ -133,7 +131,9 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'npm run lint --'
 let g:ale_emit_conflict_warnings = 0
-let g:fixmyjs_engine = 'eslint'
+let g:neoformat_enabled_javascript = ['prettier', 'eslint']
+let g:flow#autoclose = 1
+
 
 autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> correctly
 
