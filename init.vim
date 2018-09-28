@@ -65,7 +65,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-syntastic/syntastic'
 Plug 'sbdchd/neoformat'
 Plug 'flowtype/vim-flow'
+Plug 'epilande/vim-react-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 Plug 'ternjs/tern_for_vim', { 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' } 
+Plug 'Galooshi/vim-import-js', { 'do': 'npm install -g import-js' }
 
 call plug#end()
 
@@ -151,12 +155,38 @@ let g:ale_emit_conflict_warnings = 0
 let g:neoformat_enabled_javascript = ['prettier', 'eslint']
 let g:flow#autoclose = 1
 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" Autocomplete
+
+" Start autocompletion after 4 chars
+let g:ycm_min_num_of_chars_for_completion = 4
+let g:ycm_min_num_identifier_candidate_chars = 4
+let g:ycm_enable_diagnostic_highlighting = 0
+
+" Don't show YCM's preview window [ I find it really annoying ]
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
 
 autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> correctly
 
 " Vimbrant configs
 highlight ColorColumn ctermbg=7
 highlight ColorColumn guibg=Gray
+
+" Cursor
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=white
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i-ci:ver25-iCursor 
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
 
 " Required:
 filetype plugin indent on
