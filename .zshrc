@@ -1,6 +1,7 @@
-export ZSH=/Users/jonatas/.oh-my-zsh
+export ZSH="/home/jonatas/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
+
 
 plugins=(
   git
@@ -12,12 +13,10 @@ source $ZSH/oh-my-zsh.sh
 
 # System
 alias sync_time="sudo ntpd -qg"
-alias vim="nvim"
 alias synctime="sudo ntpd -qg"
 alias zshedit="vim ~/.zshrc"
 alias zshreload="source ~/.zshrc"
-alias vimedit="vim ~/.config/nvim/init.vim"
-alias gvimedit="vim ~/.config/nvim/ginit.vim"
+alias vimedit="vim ~/.vimrc"
 
 # GIT
 alias g!='git init' 
@@ -50,7 +49,6 @@ alias gsh-l='git stash list'
 alias gsh-p='git stash pop'
 
 # DOCKER alias
-alias docker_postgres="docker run -d -p 5432:5432 postgres"
 alias start_docker="sudo systemctl start docker"
 alias stop_docker='docker stop $(docker ps -a -q)'
 alias remove_docker='docker rm $(docker ps -a -q)'
@@ -59,23 +57,13 @@ alias remove_docker='docker rm $(docker ps -a -q)'
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/Workspace/go
 export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$GOROOT/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/opt/local/bin
+export PATH=$PATH:$GOROOT/bin:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:/opt/local/bin
 
 # db
 function mysql_repair {
   sudo mysql.server stop
   sudo chown -R _mysql:mysql /usr/local/var/mysql
   sudo mysql.server start 
-}
-
-# docker mailcatcher
-function mailc(){
-  docker run -d -p 1025:1025 -p 1080:1080 aegypius/mailcatcher
-}
-
-# docker mongodb
-function mongodb_docker() {
-  docker run -d -p 27017:27017 -p 28017:28017 -e AUTH=no tutum/mongodb
 }
 
 # user and group permission
@@ -86,11 +74,8 @@ function set_permissions(){
   sudo chgrp -R jonatas .*;
 }
 
-function local_yo() {
-  node_modules/yo/lib/cli.js $1 $2
-}
-
-# rbenv settings
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# for ubuntu
+export SHELL=`which zsh`
+[ -z "$ZSH_VERSION" ] && exec "$SHELL" -l
