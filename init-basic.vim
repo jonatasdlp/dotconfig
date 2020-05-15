@@ -31,6 +31,12 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" EditorConfig plugin for Vim http://editorconfig.org
+Plug 'editorconfig/editorconfig-vim'
+
+" fugitive.vim: A Git wrapper so awesome, it should be illegal https://www.vim.org/scripts/script.ph…
+Plug 'tpope/vim-fugitive'
+
 " Initialize plugin system
 call plug#end()
 
@@ -48,7 +54,14 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_theme='powerlineish'
 
-set guifont=Hack\ Bold\ Nerd\ Font\ Complete\ Font:h13
+let g:molokai_original = 1
+let g:rehash256 = 1
+
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=white
+colorscheme molokai
+
+set guifont=Hack\ Regular\ Nerd\ Font\ Complete\ Font:h13
 set encoding=UTF-8
 set number
 set smarttab
@@ -57,3 +70,16 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set shortmess+=c
+set background=dark
+set shell=/bin/zsh
+
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i-ci:ver25-iCursor 
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
+
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set writebackup
